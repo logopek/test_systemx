@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <h1>{{ test_obj.text }}</h1>
+    <h1>Max mark: {{ test_obj.mark }}</h1>
+</head>
+<body>
+    {% for i in question_list %}
+        {% with question_id=i.id %}
+            <h1>{{ i.text }}</h1>>
+            {% if i.answer_type == "choice" %}
+                <div class="answers">
+
+                    {% for v in answer_list[question_id] %}
+                        <input type="radio" id="{{ v.id }}">
+                        <label for="{{ v.id }}">{{ v.text }}</label>
+                    {% endfor %}
+                </div>
+
+            {% elif i.answer_type == "multichoice" %}
+                <div class="answers">
+                    <select id="selectable" multiple>
+                            {% for v in answer_list[question_id] %}
+                                <option value="{{ v.id }}">{{ v.text }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+            {% else %}
+                <div class="answers">
+                    <input type="text">
+                </div>
+            {% endif %}
+        {% endwith %}
+    {% endfor %}
+
+</body>
+</html>

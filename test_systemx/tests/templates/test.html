@@ -9,23 +9,20 @@
 <body>
     {% for i in question_list %}
         {% with question_id=i.id %}
-            <h1>{{ i.text }}</h1>>
+            <h1>{{ i.text }}</h1>
             {% if i.answer_type == "choice" %}
                 <div class="answers">
-
-                    {% for v in answer_list[question_id] %}
-                        <input type="radio" id="{{ v.id }}">
-                        <label for="{{ v.id }}">{{ v.text }}</label>
+                    {% for a in i.answers.all %}
+                        <input type="radio" id="{{ a.id }}" name="answer">
+                        <label for="{{ a.id }}">{{ a.text }}</label>
                     {% endfor %}
                 </div>
-
             {% elif i.answer_type == "multichoice" %}
                 <div class="answers">
-                    <select id="selectable" multiple>
-                            {% for v in answer_list[question_id] %}
-                                <option value="{{ v.id }}">{{ v.text }}</option>
-                            {% endfor %}
-                    </select>
+                    {% for a in i.answers.all %}
+                        <input type="checkbox" id="{{ a.id }}">
+                        <label for="{{ a.id }}">{{ a.text }}</label>
+                    {% endfor %}
                 </div>
             {% else %}
                 <div class="answers">
@@ -34,6 +31,5 @@
             {% endif %}
         {% endwith %}
     {% endfor %}
-
 </body>
 </html>

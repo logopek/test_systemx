@@ -26,5 +26,5 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, default=0)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, default=0, related_name="answers")
     text = models.TextField(max_length=2048)
